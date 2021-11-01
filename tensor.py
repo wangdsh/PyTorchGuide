@@ -101,6 +101,12 @@ c = torch.dot(a.float(), b)
 # 矩阵指数
 c = torch.randn(3, 3).matrix_power(3)
 
+# 批矩阵乘法
+c = torch.bmm(torch.randn(32, 3, 4), torch.randn(32, 4, 5)) # [32, 3, 5]
+
+# 广播
+c = torch.rand(5, 5) - torch.rand(1, 5)
+
 # ------------------------------
 #    索引
 # ------------------------------
@@ -108,4 +114,20 @@ c = torch.randn(3, 3).matrix_power(3)
 # ------------------------------
 #    改变张量形状
 # ------------------------------
+
+# ------------------------------
+#    其它操作
+# ------------------------------
+t = torch.rand(5, 5)
+
+x = torch.sum(t, dim=0, keepdim=False) # torch.Size([5])
+values, indices = torch.max(t, dim=1) # torch.min
+x = torch.abs(torch.tensor([-1, 2, -3]))
+x = torch.argmax(t, dim=1) # torch.argmin
+x = torch.eq(torch.tensor([1, 3]), torch.tensor([2, 3]))
+x = torch.mean(t, dim=1)
+values, indices = torch.sort(t, dim=1, descending=False)
+x = torch.clamp(t, min=0) # 夹紧
+x = torch.any(t.bool(), dim=1)
+x = torch.all(t.bool(), dim=1)
 
