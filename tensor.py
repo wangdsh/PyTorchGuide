@@ -110,6 +110,29 @@ c = torch.rand(5, 5) - torch.rand(1, 5)
 # ------------------------------
 #    索引
 # ------------------------------
+batch_size, features = 32, 28
+t = torch.rand(batch_size, features)
+x = t[0] # t[0, :]
+x = t[1, 0:10]
+t[0, 0] = 6
+
+rows = [1, 3]
+cols = [2, 5]
+x = t[rows, cols]
+x = t[torch.tensor(rows), torch.tensor(cols)]
+
+t = torch.arange(10)
+indices = [1, 5, 7]
+x = t[indices]
+
+x = t[(t<3) | (t>=8)]
+x = t[t.remainder(2) == 0]
+
+x = torch.where(t<5, t, t*2)
+x = torch.tensor([1, 2, 2, 3, 3]).unique()
+
+x = t.dim()
+x = t.numel()
 
 # ------------------------------
 #    改变张量形状
