@@ -137,6 +137,26 @@ x = t.numel()
 # ------------------------------
 #    改变张量形状
 # ------------------------------
+t = torch.arange(9)
+x = t.view(3, 3) # 连续
+x = t.reshape(3, 3) # 非连续
+x = x.t() # 转置后非连续
+x = x.contiguous().view(9) # 必须先变连续再变形
+
+t1 = torch.rand(2, 5)
+t2 = torch.rand(2, 5)
+x = torch.cat((t1, t2), dim=0) # torch.Size([4, 5])
+x = torch.cat((t1, t2), dim=1) # torch.Size([2, 10])
+x  = t1.view(-1) # torch.Size([10])
+
+t = torch.rand(32, 28, 28)
+x = t.view(32, -1) # torch.Size([32, 784])
+x = t.permute(1, 0, 2) # torch.Size([28, 32, 28])
+
+t = torch.rand(5)
+x = t.unsqueeze(0) # torch.Size([1, 5])
+x = t.unsqueeze(1) # torch.Size([5, 1])
+x = x.squeeze(1) # torch.Size([5])
 
 # ------------------------------
 #    其它操作
